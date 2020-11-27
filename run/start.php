@@ -5,7 +5,6 @@ define( 'DS' , '/' );
 require_once 'helpers.php';
 
 require_once 'Src/Assets.php';
-require_once 'Src/Cms.php';
 require_once 'Src/Content.php';
 require_once 'Src/Directory.php';
 require_once 'Src/File.php';

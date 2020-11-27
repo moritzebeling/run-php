@@ -1,43 +1,23 @@
 <?php
 
-class Image {
+class Image extends File {
 
-    public $url;
-    public $path;
-    public $title;
-    public $filename;
-    public $extension;
-
-    public function __construct( $url )
+    public function srcset( $sizes = [ 600, 1200, 2000 ] ): array
     {
-
-        $this->url = $url;
-
-        $parts = explode('/', $url );
-
-        $this->filename = array_pop( $parts );
-        $this->path = implode( '/', $parts );
-
-        $parts = explode('.', $this->filename );
-
-        $this->extension = array_pop( $parts );
-        $this->title = implode( '.', $parts );
-
+        $srcset = [];
+        foreach( $sizes as $size ){
+            $srcset[$size] = (new Thumb( $this, $size ))->toArray();
+        }
+        return $srcset;
     }
 
     public function toArray(): array {
-        return [
-            'url' => $this->url,
-            'path' => $this->path,
-            'filename' => $this->filename,
-            'extension' => $this->extension,
-            'title' => $this->title,
-            'srcset' => [
-                '600' => (new Thumb( $this, 600))->url(),
-                '1200' => (new Thumb( $this, 1200))->url(),
-                '2000' => (new Thumb( $this, 2000))->url(),
+        return array_merge(
+            parent::toArray(),
+            [
+                'srcset' => $this->srcset()
             ]
-        ];
+        );
     }
 
 }

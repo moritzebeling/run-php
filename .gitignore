@@ -1,0 +1,13 @@
+# system
+.DS_Store
+
+# dev
+node_modules
+
+# content
+portfolio/
+portfolio/**
+
+# generated content
+temporary/
+temporary/**

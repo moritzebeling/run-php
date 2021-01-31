@@ -1,0 +1,10 @@
+# system
+.DS_Store
+
+# dev
+node_modules
+vendor
+
+# content
+websites/
+websites/**

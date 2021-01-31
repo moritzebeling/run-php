@@ -3,7 +3,7 @@ Archive of experimental websites made by students of Klasse Digitale Grafik at H
 
 ## Submit your website
 
-1. Go to the `websites` directory
+1. Go to the `content` directory
 2. Create a new folder like `YYYY-your-project-name`. Please note that you can only use `a-z0-9` and `-` characters
 
 ### Project metadata

@@ -9,5 +9,6 @@ vendor
 content/
 content/**
 
+# temporary
 temporary/
 temporary/**

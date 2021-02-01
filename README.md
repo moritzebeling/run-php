@@ -13,13 +13,13 @@ Archive of experimental websites made by students of Klasse Digitale Grafik at H
 You can provide some metadata about your project using the `website.json` file like:
 ```json
 {
-  "title": "Project title" /* string(60) */,
-  "description": "Short description of your project" /* string(200) */,
-  "credits": "Your name, people or things you want to credit" /* string(200) */,
-  "url": "https://... url to external project website" /* string(200) */,
+  "title": "Project title /* string(60) */",
+  "description": "Short description of your project /* string(200) */",
+  "credits": "Your name, people or things you want to credit /* string(200) */",
+  "url": "https://... url to external project website /* string(200) */",
 
   /* only for external hosts: */
-  "source": "https://... url if you want to" /* string(200) */
+  "source": "https://... url if you want to /* string(200) */"
 }
 ```
 

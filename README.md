@@ -1,6 +1,15 @@
-# run/cms
+# RUN PHP
 
-A very simple file based CMS running on PHP.
-Heavily inspired by Kirby CMS.
+PHP mini framework powering RUN CMS
 
-Read more at: https://github.com/moritzebeling/run-cms
+https://github.com/moritzebeling/run-cms
+
+## Install
+
+```
+git submodule add git@github.com:moritzebeling/run-php.git run
+```
+
+## Info
+
+This project is currently in devlopment, and should only be used for experiments. Contributions are welcome.

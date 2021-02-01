@@ -19,6 +19,11 @@ class Page {
 
     }
 
+    public function __call( string $property, $arguments)
+    {
+        return $this->data()[$property];
+    }
+
     public function path(): string {
         return $this->path;
     }

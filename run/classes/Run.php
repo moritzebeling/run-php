@@ -79,6 +79,9 @@ class Run {
             }
 
         }
+        if( is_file( $this->option('templates') . DS . 'default.php' ) ){
+            return $this->option('templates') . DS . 'default.php';
+        }
         return 'run/config/template.php';
     }
 

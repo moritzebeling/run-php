@@ -77,11 +77,9 @@ class Run {
 
     public function content(): Content
     {
-        if( $this->content ){
-            return $this->content;
+        if( $this->content === null ){
+            $this->content = new Content();
         }
-
-        $this->content = new Content();
         return $this->content;
     }
 
@@ -102,7 +100,7 @@ class Run {
     public function render()
     {
 
-        $___data___ = call_user_func( include $this->controller()->file(), $this );
+        $___data___ = call_user_func( include $this->controller()->file(), $this->content() );
 
         extract( $___data___ );
 

@@ -1,9 +1,9 @@
 <?php
 
-return function ( $run ) {
+return function ( $content ) {
 
     return [
-        'data' => $run->debug()
+        'data' => $content->toArray()
     ];
 
 };

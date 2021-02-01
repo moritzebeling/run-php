@@ -1,9 +1,9 @@
 <?php snippet('header'); ?>
 
-Website
+<?php dump( $data ); ?>
 
 <script>
-    window.siteData = <?php // echo json_encode( $data ); ?>;
+    window.siteData = <?= json_encode( $data ); ?>;
 </script>
 
 <?php snippet('footer'); ?>

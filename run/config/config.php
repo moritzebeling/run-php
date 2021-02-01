@@ -4,6 +4,7 @@ return [
 
     'content' =>     'content',
     'pageinfo' =>    'data.json',
+    'temporary' =>   'temporary',
 
     'controllers' => 'theme/controllers',
     'snippets' =>    'theme/templates/snippets',

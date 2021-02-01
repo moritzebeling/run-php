@@ -2,26 +2,27 @@
 
 class Content {
 
-    protected $path = 'content';
+    protected $path;
+
     protected $content;
 
     public function __construct()
     {
 
-        $this->content();
+        $this->content = new Page( option('content') );
 
     }
 
     public function content(){
 
-        $this->content = new Page( $this->path );
+
         return $this->content;
 
     }
 
     public function toArray(): array
     {
-        return $this->content->toArray()['pages'][0];
+        return $this->content->toArray()['pages'];
     }
 
 }

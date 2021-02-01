@@ -28,7 +28,7 @@ class Page {
 
         $this->data = [];
 
-        $path = $this->path . DS . 'data.json';
+        $path = $this->path . DS . option('pageinfo');
         if( file_exists( $path ) ){
 
             $string = file_get_contents( $path );
@@ -97,7 +97,7 @@ class Page {
         }
 
         return array_merge( $this->data, [
-            'url' => str_replace( 'content/', '', $this->path ),
+            'url' => str_replace( option('content').DS, '', $this->path ),
             'pages' => $pages,
             'images' => $images,
         ]);

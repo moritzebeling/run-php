@@ -15,6 +15,15 @@ function toSlug( string $string ){
     return substr( $string, 0, 64 );
 }
 
+function run(){
+    global $app;
+    return $app;
+}
+
+function option( string $key ){
+    return run()->option( $key );
+}
+
 function controller( ?string $name = 'default', $data = [] ){
 
     $file = ROOT . "/theme/controllers/$name.php";

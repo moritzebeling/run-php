@@ -19,7 +19,7 @@ const IMAGE_HANDLERS = [
 
 class Thumb {
 
-    protected $root = 'temporary';
+    protected $root;
 
     protected $image;
     protected $type;
@@ -34,6 +34,8 @@ class Thumb {
 
     public function __construct( $image, int $width = null, int $height = null )
     {
+        $this->root = option('temporary');
+
         $this->image = $image;
         $this->width = $width;
         $this->height = $height;
@@ -67,7 +69,7 @@ class Thumb {
     {
         $this->url = implode('/',[
             $this->root,
-            str_replace( 'content/', '', $this->image->path() ),
+            str_replace( option('content').DS, '', $this->image->path() ),
             slug( $this->image->name() )
         ]);
 
@@ -88,7 +90,7 @@ class Thumb {
 
     public function directory()
     {
-        $this->directory = $this->root . DS . str_replace( 'content/', '', $this->image->path() );
+        $this->directory = $this->root . DS . str_replace( option('content').DS, '', $this->image->path() );
         if( !is_dir( $this->directory ) ){
             mkdir( $this->directory, 0777, true);
         }

@@ -3,9 +3,10 @@
 class Run {
 
     protected $request;
+    protected $config;
     protected $routes;
-    protected $controller;
     protected $template;
+    protected $controller;
 
     public function __construct()
     {
@@ -32,7 +33,16 @@ class Run {
         $settings = File::load('theme/config/config.php', []);
 
         $this->config = array_replace_recursive( $defaults, $settings );
+
         return $this->config;
+    }
+
+    public function option( string $key = null )
+    {
+        if( array_key_exists( $key, $this->config() ) ){
+            return $this->config()[ $key ];
+        }
+        return null;
     }
 
     public function routes(): array
@@ -48,26 +58,71 @@ class Run {
         return $this->routes;
     }
 
-    public function template( ?string $fallback = 'default.php' ): string
+    public function template( ?string $name = null ): string
     {
         if( $this->template ){
             return $this->template;
         }
 
+        if( $name !== null ){
+            if( is_file( $this->option('templates') . DS . $name ) ){
+                return $this->option('templates') . DS . $name;
+            }
+        }
+
         foreach( $this->routes() as $route => $template ){
 
             if( preg_match( '/^' . str_replace( '*', '(.*)', $route) . '$/', $this->request() ) ){
-
-                return $template;
+                if( is_file( $this->option('templates') . DS . $template ) ){
+                    return $this->option('templates') . DS . $template;
+                }
             }
 
         }
-        return $fallback;
+        return 'run/config/template.php';
     }
 
-    public function render(){
+    public function controller( ?string $name = null ): string
+    {
+        if( $this->controller ){
+            return $this->controller;
+        }
 
-        return $this->request();
+        $controller = $name !== null ? $name : $this->template();
+
+        if( is_file( $this->option('controllers') . DS . $controller ) ){
+            return $this->option('controllers') . DS . $controller;
+        }
+        if( is_file( $this->option('controllers') . DS . 'default.php' ) ){
+            return $this->option('controllers') . DS . 'default.php';
+        }
+        return 'run/config/controller.php';
+    }
+
+    public function debug(): array
+    {
+
+        return [
+            'config' => $this->config(),
+            'routes' => $this->routes(),
+            'request' => $this->request(),
+            'controller' => $this->controller(),
+            'template' => $this->template(),
+        ];
+
+    }
+
+    public function render()
+    {
+
+        $___data___ = call_user_func(
+            File::load( $this->controller(), [] ),
+            $this
+        );
+
+        extract( $___data___ );
+
+        include $this->template();
 
     }
 

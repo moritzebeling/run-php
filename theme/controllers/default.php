@@ -3,7 +3,7 @@
 return function ( $run ) {
 
     return [
-        'data' => $run->debug()
+        'data' => $run->content()->toArray()
     ];
 
 };

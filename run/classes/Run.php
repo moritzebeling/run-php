@@ -7,6 +7,7 @@ class Run {
     protected $routes;
     protected $template;
     protected $controller;
+    protected $content;
 
     public function __construct()
     {
@@ -102,6 +103,16 @@ class Run {
         return 'run/config/controller.php';
     }
 
+    public function content(): Content
+    {
+        if( $this->content ){
+            return $this->content;
+        }
+
+        $this->content = new Content();
+        return $this->content;
+    }
+
     public function debug(): array
     {
 
@@ -111,6 +122,7 @@ class Run {
             'request' => $this->request(),
             'controller' => $this->controller(),
             'template' => $this->template(),
+            'content' => $this->content(),
         ];
 
     }

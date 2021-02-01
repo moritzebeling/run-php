@@ -1,6 +1,8 @@
 <?php snippet('header'); ?>
 
-<?php dump( $data ); ?>
+Welcome to this website
+
+<?php dump( run()->debug() ) ?>
 
 <script>
     window.siteData = <?= json_encode( $data ); ?>;

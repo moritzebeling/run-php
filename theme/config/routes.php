@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'data.json' => 'json.php',
+    'json' => 'json.php'
 ];

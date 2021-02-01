@@ -46,7 +46,7 @@ function template( ?string $name = 'default' ){
 
 function snippet( string $name ){
 
-    $file = ROOT . "/theme/snippets/$name.php";
+    $file = ROOT . "/theme/templates/snippets/$name.php";
     if( file_exists( $file ) ){
         require_once $file;
     }

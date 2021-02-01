@@ -12,4 +12,4 @@ require_once 'classes/Controller.php';
 require_once 'classes/Page.php';
 require_once 'classes/Image.php';
 require_once 'classes/Thumb.php';
-// require_once 'classes/Template.php';
+require_once 'classes/Template.php';

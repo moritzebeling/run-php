@@ -59,37 +59,18 @@ class Run {
         return $this->routes;
     }
 
-    public function template( ?string $name = null ): string
+    public function template(): Template
     {
-        if( $this->template ){
-            return $this->template;
+        if( $this->template === null ){
+            $this->template = Template::findByRoute( $this->request(), $this->routes() );
         }
-
-        if( $name !== null ){
-            if( is_file( $this->option('templates') . DS . $name ) ){
-                return $this->option('templates') . DS . $name;
-            }
-        }
-
-        foreach( $this->routes() as $route => $template ){
-
-            if( preg_match( '/^' . str_replace( '*', '(.*)', $route) . '$/', $this->request() ) ){
-                if( is_file( $this->option('templates') . DS . $template ) ){
-                    return $this->option('templates') . DS . $template;
-                }
-            }
-
-        }
-        if( is_file( $this->option('templates') . DS . 'default.php' ) ){
-            return $this->option('templates') . DS . 'default.php';
-        }
-        return 'run/config/template.php';
+        return $this->template;
     }
 
-    public function controller( ?string $name = null ): Controller
+    public function controller(): Controller
     {
         if( $this->controller === null ){
-            $this->controller = new Controller();
+            $this->controller = new Controller( $this->template()->name() );
         }
         return $this->controller;
     }
@@ -112,7 +93,7 @@ class Run {
             'routes' => $this->routes(),
             'request' => $this->request(),
             'controller' => $this->controller()->debug(),
-            'template' => $this->template(),
+            'template' => $this->template()->debug(),
             'content' => $this->content(),
         ];
 
@@ -125,7 +106,7 @@ class Run {
 
         extract( $___data___ );
 
-        include $this->template();
+        $this->template()->include();
 
     }
 

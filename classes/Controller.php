@@ -30,9 +30,9 @@ class Controller {
 
         $this->path = option('controllers');
 
-        if( $this->exists( $this->path . DS . $name ) ){
+        if( self::exists( $this->path . DS . $name ) ){
             $this->name = $name;
-        } else if( $this->exists( $this->path . DS . 'default.php' ) ){
+        } else if( self::exists( $this->path . DS . 'default.php' ) ){
             $this->name = 'default.php';
         } else {
             $this->path = 'run/config';
@@ -50,10 +50,10 @@ class Controller {
 
     public function include()
     {
-        if( $this->exists( $this->file ) ){
+        if( self::exists( $this->file ) ){
             return [];
         }
-        return call_user_func( include $file );
+        include $this->file;
     }
 
 }

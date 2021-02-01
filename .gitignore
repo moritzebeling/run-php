@@ -3,11 +3,11 @@
 
 # dev
 node_modules
+vendor
 
 # content
-portfolio/
-portfolio/**
+content/
+content/**
 
-# generated content
 temporary/
 temporary/**

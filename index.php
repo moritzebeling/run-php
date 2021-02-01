@@ -1,9 +1,7 @@
 <?php
 
-require_once 'run/start.php';
+require_once 'run/run.php';
 
-header('Content-Type: application/json');
+$app = new Run();
 
-$content = new Content();
-
-echo json_encode( $content->toArray() );
+dump( $app->render() );

@@ -5,44 +5,79 @@ DefaultLanguage en
 <IfModule mod_rewrite.c>
 
   RewriteEngine on
+  RewriteBase /
 
-  # make sure to set the RewriteBase correctly
-  # if you are running the site in a subfolder.
-  # Otherwise links or the entire site will break.
-  #
-  # If your homepage is http://yourdomain.com/mysite
-  # Set the RewriteBase to:
-  #
-  # RewriteBase /mysite
+  # remove www and add https
+  # RewriteCond %{HTTP_HOST} ^www.example.com$ [NC]
+  # RewriteRule ^(.*)$ https://example.com/$1 [R=301,L]
 
-  # In some environments it's necessary to
-  # set the RewriteBase to:
-  #
-  # RewriteBase /
+  # force https
+  # RewriteCond %{HTTPS} off
+  # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-  # redirect favicon, sitemap, robots, ....
-  RewriteRule ^favicon\.ico$ /theme/favicon/favicon.ico [L]
-
-  # block files and folders beginning with a dot, such as .git
-  # except for the .well-known folder, which is used for Let's Encrypt and security.txt
-  RewriteRule (^|/)\.(?!well-known\/) index.php [L]
-
-  # block text files in the content folder from being accessed directly
-  RewriteRule ^content/(.*)\.(txt|md|mdown)$ index.php [L]
-
-  # block all files in the theme folder from being accessed directly
-  # except for requests to plugin assets files
-  RewriteRule ^theme/(.*) index.php [L]
-
-  # Enable authentication header
-  SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
-
-  # block direct access to kirby and the panel sources
-  RewriteRule ^system/(.*) index.php [L]
-
-  # make site links work
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^(.*) index.php [L]
+  RewriteRule ^.*$ /index.php [L,QSA]
 
+  FallbackResource /index.php
+
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType text/html .html
+  AddType application/json .json
+  AddType application/xml .xml
+
+  AddType text/css .css
+  AddType text/javascript .js
+
+  AddType image/jpeg .jpeg .jpg .JPG
+  AddType image/png .png
+  AddType image/svg+xml .svg
+  AddType image/x-icon .ico
+  AddType image/tiff .tiff .tif
+  AddType image/gif .gif
+
+  AddType application/x-font-woff .woff
+  AddType application/x-font-woff .woff2
+  AddType font/truetype .ttf
+  AddType font/opentype .otf
+  AddType font/eot .eot
+</IfModule>
+
+<IfModule mod_deflate.c>
+
+  <FilesMatch "\.(txt|html|md|css|js|json|xml)$" >
+    SetOutputFilter DEFLATE
+  </FilesMatch>
+
+  <FilesMatch "\.(woff|woff2|ttf|otf|eot|svg)$" >
+    SetOutputFilter DEFLATE
+  </FilesMatch>
+
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  ExpiresByType text/html "access 10 minutes"
+  ExpiresByType application/json "access 10 minutes"
+  ExpiresByType application/xml "access 10 minutes"
+
+  ExpiresByType text/css "access 10 minutes"
+  ExpiresByType text/javascript "access 10 minutes"
+
+  ExpiresByType image/jpeg "access 1 day"
+  ExpiresByType image/png "access 1 day"
+  ExpiresByType image/svg+xml "access 1 day"
+  ExpiresByType image/x-icon "access 1 day"
+  ExpiresByType image/tiff "access 1 day"
+  ExpiresByType image/gif "access 1 day"
+
+  ExpiresByType application/x-font-woff "access 1 year"
+  ExpiresByType font/truetype "access 1 year"
+  ExpiresByType font/opentype "access 1 year"
+  ExpiresByType font/eot "access 1 year"
+
+  ExpiresDefault "access 1 day"
 </IfModule>

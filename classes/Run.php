@@ -86,21 +86,12 @@ class Run {
         return 'run/config/template.php';
     }
 
-    public function controller( ?string $name = null ): string
+    public function controller( ?string $name = null ): Controller
     {
-        if( $this->controller ){
-            return $this->controller;
+        if( $this->controller === null ){
+            $this->controller = new Controller();
         }
-
-        $controller = $name !== null ? $name : $this->template();
-
-        if( is_file( $this->option('controllers') . DS . $controller ) ){
-            return $this->option('controllers') . DS . $controller;
-        }
-        if( is_file( $this->option('controllers') . DS . 'default.php' ) ){
-            return $this->option('controllers') . DS . 'default.php';
-        }
-        return 'run/config/controller.php';
+        return $this->controller;
     }
 
     public function content(): Content
@@ -120,7 +111,7 @@ class Run {
             'config' => $this->config(),
             'routes' => $this->routes(),
             'request' => $this->request(),
-            'controller' => $this->controller(),
+            'controller' => $this->controller()->debug(),
             'template' => $this->template(),
             'content' => $this->content(),
         ];
@@ -130,10 +121,7 @@ class Run {
     public function render()
     {
 
-        $___data___ = call_user_func(
-            File::load( $this->controller(), [] ),
-            $this
-        );
+        $___data___ = $this->controller()->include();
 
         extract( $___data___ );
 

@@ -26,7 +26,7 @@ function option( string $key ){
 
 function controller( ?string $name = 'default', $data = [] ){
 
-    $file = ROOT . "/theme/controllers/$name.php";
+    $file = ROOT . DS . option('controllers') . DS . "$name.php";
     if( file_exists( $file ) ){
         require_once $file;
     }
@@ -35,9 +35,7 @@ function controller( ?string $name = 'default', $data = [] ){
 
 function template( ?string $name = 'default' ){
 
-    $cool = 'sehgf';
-
-    $file = ROOT . "/theme/templates/$name.php";
+    $file = ROOT . DS . option('templates') . DS . "$name.php";
     if( file_exists( $file ) ){
         require_once $file;
     }
@@ -46,7 +44,7 @@ function template( ?string $name = 'default' ){
 
 function snippet( string $name ){
 
-    $file = ROOT . "/theme/templates/snippets/$name.php";
+    $file = ROOT . DS . option('snippets') . DS . "$name.php";
     if( file_exists( $file ) ){
         require_once $file;
     }
@@ -56,7 +54,7 @@ function snippet( string $name ){
 function css( string $filename ){
 
     if( substr( $filename, 0, 4 ) !== "http" ){
-        $filename = "/theme/css/$filename";
+        $filename = DS . option('css') . DS . $filename;
         if( !file_exists( ROOT . $filename ) ){
             return;
         }
@@ -68,7 +66,7 @@ function css( string $filename ){
 function js( string $filename ){
 
     if( substr( $filename, 0, 4 ) !== "http" ){
-        $filename = "/theme/js/$filename";
+        $filename = DS . option('js') . DS . $filename;
         if( !file_exists( ROOT . $filename ) ){
             return;
         }

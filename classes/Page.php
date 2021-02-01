@@ -14,8 +14,6 @@ class Page {
         $this->path = $path;
 
         $this->data();
-        $this->pages();
-        $this->images();
 
     }
 
@@ -47,46 +45,46 @@ class Page {
 
     public function pages(): array
     {
-        $this->pages = [];
+        if( !$this->pages ){
+            $this->pages = [];
+            foreach( scandir( $this->path ) as $item ){
 
-        foreach( scandir( $this->path ) as $item ){
+                $first = substr($item, 0, 1);
+                if( $first === '.' || $first === '_' ){
+                    continue;
+                }
 
-            $first = substr($item, 0, 1);
-            if( $first === '.' || $first === '_' ){
-                continue;
+                $path = $this->path . DS . $item;
+
+                if( is_dir( $path ) ){
+                    $this->pages[] = new Page( $path );
+                }
+
             }
-
-            $path = $this->path . DS . $item;
-
-            if( is_dir( $path ) ){
-                $this->pages[] = new Page( $path );
-            }
-
         }
-
         return $this->pages;
     }
 
     public function images(): array
     {
-        $this->images = [];
+        if( !$this->images ){
+            $this->images = [];
 
-        $images = preg_grep('~\.(jpeg|jpg|png)$~', scandir( $this->path ));
+            $images = preg_grep('~\.(jpeg|jpg|png)$~', scandir( $this->path ));
 
-        foreach( $images as $item ){
+            foreach( $images as $item ){
 
-            $first = substr($item, 0, 1);
-            if( $first === '.' || $first === '_' ){
-                continue;
+                $first = substr($item, 0, 1);
+                if( $first === '.' || $first === '_' ){
+                    continue;
+                }
+
+                $path = $this->path . DS . $item;
+                $this->images[] = new Image( $path );
+
             }
-
-            $path = $this->path . DS . $item;
-            $this->images[] = new Image( $path );
-
         }
-
         return $this->images;
-
     }
 
     public function toArray(): array

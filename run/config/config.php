@@ -1,11 +1,16 @@
 <?php
 
 return [
+
     'content' =>     'content',
+    'pageinfo' =>    'data.json',
+
     'controllers' => 'theme/controllers',
-    'css' =>         'theme/css',
-    'favicon' =>     'theme/favicon',
-    'js' =>          'theme/js',
-    'snippets' =>    'theme/snippets',
+    'snippets' =>    'theme/templates/snippets',
     'templates' =>   'theme/templates',
+
+    'css' =>         'theme/css',
+    'js' =>          'theme/js',
+    'favicon' =>     'theme/favicon',
+
 ];

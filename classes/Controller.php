@@ -48,12 +48,4 @@ class Controller {
         return is_file( $file );
     }
 
-    public function include()
-    {
-        if( self::exists( $this->file ) ){
-            return [];
-        }
-        include $this->file;
-    }
-
 }

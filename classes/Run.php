@@ -102,11 +102,11 @@ class Run {
     public function render()
     {
 
-        $___data___ = $this->controller()->include();
+        $___data___ = call_user_func( include $this->controller()->file(), $this );
 
         extract( $___data___ );
 
-        $this->template()->include();
+        include $this->template()->file();
 
     }
 

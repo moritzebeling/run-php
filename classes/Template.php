@@ -57,12 +57,4 @@ class Template {
         return is_file( $file );
     }
 
-    public function include()
-    {
-        if( $this->exists( $this->file ) ){
-            return '';
-        }
-        include $this->file;
-    }
-
 }

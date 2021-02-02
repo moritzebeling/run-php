@@ -19,7 +19,11 @@ class Page {
 
     public function __call( string $property, $arguments)
     {
-        return $this->data()[$property];
+        if( property_exists( $this, $property ) ){
+            return $this->{$property};
+        } else if( isset( $this->data()[$property] ) ){
+            return $this->data()[$property];
+        }
     }
 
     public function path(): string {
